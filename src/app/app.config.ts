@@ -1,12 +1,52 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { definePreset } from '@primeuix/themes';
+import { providePrimeNG } from 'primeng/config';
+import Material from '@primeuix/themes/material';
 
 import { routes } from './app.routes';
+
+const MyPreset = definePreset(Material, {
+  semantic: {
+    primary: {
+      50: '#F3E5F5',
+      100: '#E1BEE7',
+      200: '#CE93D8',
+      300: '#BA68C8',
+      400: '#AB47BC',
+      500: '#9C27B0', // Secondary main
+      600: '#8E24AA',
+      700: '#7B1FA2',
+      800: '#6A1B9A',
+      900: '#4A148C',
+    },
+  },
+});
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes)
-  ]
+    provideRouter(routes),
+    providePrimeNG({
+      zIndex: {
+        modal: 1100, // dialog, sidebar
+        overlay: 1000, // dropdown, overlaypanel
+        menu: 1000, // overlay menus
+        tooltip: 1100, // tooltip
+      },
+      ripple: true,
+      theme: {
+        preset: MyPreset,
+        options: {
+          prefix: 'my',
+          darkModeSelector: false || 'none',
+        },
+      },
+    }),
+  ],
 };
