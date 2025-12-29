@@ -14,8 +14,8 @@ const MyPreset = definePreset(Material, {
   semantic: {
     primary: {
       50: '#F3E5F5',
-      100: '#E1BEE7',
-      200: '#CE93D8',
+      100: '#237E7E',
+      200: '#DCD80D',
       300: '#BA68C8',
       400: '#AB47BC',
       500: '#9C27B0', // Secondary main
