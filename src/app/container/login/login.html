@@ -1,1 +1,59 @@
-Login component works
+<div class="min-h-screen flex items-center justify-center px-4">
+  <div
+    class="w-full max-w-md rounded-2xl bg-white shadow-xl p-8 bg-[var(--my-primary-100)] text-[var(--my-primary-200)]"
+  >
+    <!-- Header -->
+    <h2 class="text-2xl font-semibold text-center mb-6">Welcome Back !</h2>
+
+    <!-- Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Email -->
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-[var(--my-primary-200)]"> Email </label>
+        <input
+          pInputText
+          type="email"
+          formControlName="email"
+          placeholder="john@example.com"
+          class="w-full"
+        />
+        <span
+          class="text-xs text-red-500"
+          *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+        >
+          Enter a valid email
+        </span>
+      </div>
+
+      <!-- Password -->
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium text-[var(--my-primary-200)]"> Password </label>
+        <p-password
+          formControlName="password"
+          [toggleMask]="true"
+          [feedback]="true"
+          placeholder="••••••••"
+          class="w-full"
+          inputStyleClass="w-full"
+          [style]="{ width: '100%' }"
+        ></p-password>
+        <span
+          class="text-xs text-red-500"
+          *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+        >
+          Password is required
+        </span>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-between text-sm mt-2">
+        <a routerLink="/forgot-password" class="text-[var(--my-primary-200)] hover:underline">
+          Forgot password?
+        </a>
+      </div>
+
+      <!-- Submit -->
+      <button pButton type="submit" label="Login" class="w-full mt-4"></button>
+    </form>
+  </div>
+</div>
