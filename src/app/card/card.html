@@ -1,0 +1,24 @@
+<p-card
+  class="bg-[var(--my-primary-100)] w-full !rounded-xl border-rad shadow-md border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer"
+>
+  <!-- Title -->
+  <ng-template pTemplate="title">
+    <h3 class="text-lg font-semibold text-[var(--my-primary-100)]">
+      {{ title }}
+    </h3>
+  </ng-template>
+
+  <!-- Content -->
+  <div class="space-y-2">
+    <p class="text-sm text-gray-700 line-clamp-2">
+      {{ description }}
+    </p>
+
+    <div class="flex items-center gap-2 text-sm">
+      <span class="font-semibold text-[var(--my-primary-200)]">MAC:</span>
+      <span class="font-semibold text-[var(--my-primary-100)]">
+        {{ mac }}
+      </span>
+    </div>
+  </div>
+</p-card>
