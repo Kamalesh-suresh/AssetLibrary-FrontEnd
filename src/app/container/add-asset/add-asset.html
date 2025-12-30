@@ -1,0 +1,87 @@
+<div class="min-h-screen flex items-center justify-center px-4">
+  <div
+    class="w-full max-w-md rounded-2xl shadow-xl p-8 bg-[var(--my-primary-100)] text-[var(--my-primary-200)]"
+  >
+    <!-- Header -->
+    <h2 class="text-2xl font-semibold text-center mb-6">
+      {{ isEditMode ? 'Edit Asset' : 'Add Asset' }}
+    </h2>
+
+    <!-- Form -->
+    <form [formGroup]="assetForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Title -->
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium">Title</label>
+        <input pInputText formControlName="title" placeholder="Router Asset" class="w-full" />
+        <span
+          class="text-xs text-red-500"
+          *ngIf="assetForm.get('title')?.touched && assetForm.get('title')?.invalid"
+        >
+          Title is required
+        </span>
+      </div>
+
+      <!-- Description -->
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium">Description</label>
+        <textarea
+          pInputTextarea
+          rows="3"
+          formControlName="description"
+          placeholder="Asset description"
+          class="w-full"
+        ></textarea>
+        <span
+          class="text-xs text-red-500"
+          *ngIf="assetForm.get('description')?.touched && assetForm.get('description')?.invalid"
+        >
+          Description is required
+        </span>
+      </div>
+
+      <!-- MAC Dropdown -->
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium">MAC</label>
+        <p-select
+          formControlName="mac"
+          [options]="macOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select a Mac"
+          styleClass="w-full"
+          [style]="{ width: '100%' }"
+        ></p-select>
+
+        <span
+          class="text-xs text-red-500"
+          *ngIf="assetForm.get('mac')?.touched && assetForm.get('mac')?.invalid"
+        >
+          MAC is required
+        </span>
+      </div>
+
+      <!-- Link -->
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium">Link</label>
+        <input pInputText formControlName="link" placeholder="https://example.com" class="w-full" />
+        <span
+          class="text-xs text-red-500"
+          *ngIf="assetForm.get('link')?.touched && assetForm.get('link')?.invalid"
+        >
+          Valid URL required
+        </span>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="pt-4">
+        <button
+          pButton
+          type="submit"
+          [label]="isEditMode ? 'Update Asset' : 'Create Asset'"
+          class="w-full"
+          [disabled]="assetForm.invalid"
+        ></button>
+      </div>
+    </form>
+  </div>
+</div>
