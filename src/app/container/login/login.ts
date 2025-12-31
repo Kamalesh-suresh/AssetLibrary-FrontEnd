@@ -3,7 +3,8 @@ import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angula
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,9 @@ import { RouterModule } from '@angular/router';
 })
 export class Login {
   loginForm: FormGroup;
+  loading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -26,7 +28,25 @@ export class Login {
       return;
     }
 
-    console.log('Login Data:', this.loginForm.value);
-    // Call login API here
+    this.loading = true;
+
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        console.log('Login success:', res);
+
+        // ✅ Store token
+        localStorage.setItem('token', res.token);
+
+        // ✅ Navigate after login
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        alert(err.error?.message || 'Login failed');
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
   }
 }

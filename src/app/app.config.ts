@@ -3,8 +3,10 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { definePreset } from '@primeuix/themes';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import Material from '@primeuix/themes/material';
@@ -30,6 +32,8 @@ const MyPreset = definePreset(Material, {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
+    provideAnimationsAsync(),
     provideAnimations(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
