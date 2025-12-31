@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -18,6 +19,7 @@ import { AuthService } from '../../services/auth.service';
     ButtonModule,
     RouterModule,
     MessageModule,
+    CommonModule,
   ],
 })
 export class Login {
@@ -25,7 +27,12 @@ export class Login {
   loading = false;
   submitted = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -36,6 +43,7 @@ export class Login {
     this.submitted = true;
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      this.loading = false;
       return;
     }
 
@@ -54,6 +62,8 @@ export class Login {
       error: (err) => {
         console.error('Login failed:', err);
         alert(err.error?.message || 'Login failed');
+        this.loading = false;
+        this.cdr.detectChanges();
       },
       complete: () => {
         this.loading = false;
