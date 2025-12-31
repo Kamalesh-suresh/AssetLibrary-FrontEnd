@@ -3,17 +3,27 @@ import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angula
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.html',
-  imports: [ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, RouterModule],
+  imports: [
+    ReactiveFormsModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    RouterModule,
+    MessageModule,
+  ],
 })
 export class Login {
   loginForm: FormGroup;
   loading = false;
+  submitted = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -23,6 +33,7 @@ export class Login {
   }
 
   onSubmit() {
+    this.submitted = true;
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;

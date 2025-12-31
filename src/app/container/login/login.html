@@ -17,12 +17,11 @@
           placeholder="john@example.com"
           class="w-full"
         />
-        <span
-          class="text-xs text-red-500"
-          *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
-        >
-          Enter a valid email
-        </span>
+        @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || submitted)) {
+        <p-message severity="error" size="small" variant="simple">
+          {{loginForm.get('email')?.errors?.['required'] ? 'Email is required' : 'Enter a valid email'}}
+        </p-message>
+        }
       </div>
 
       <!-- Password -->
@@ -37,12 +36,10 @@
           inputStyleClass="w-full"
           [style]="{ width: '100%' }"
         ></p-password>
-        <span
-          class="text-xs text-red-500"
-          *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
-        >
-          Password is required
-        </span>
+        @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.touched ||
+        submitted)) {
+        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+        }
       </div>
 
       <!-- Actions -->
@@ -53,7 +50,14 @@
       </div>
 
       <!-- Submit -->
-      <button pButton type="submit" label="Login" class="w-full mt-4" [loading]="loading"></button>
+      <button
+        pButton
+        type="submit"
+        label="Login"
+        class="w-full mt-4"
+        [loading]="loading"
+        [disabled]="loginForm.invalid || loading"
+      ></button>
     </form>
   </div>
 </div>
