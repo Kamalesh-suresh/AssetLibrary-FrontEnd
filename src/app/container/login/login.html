@@ -38,7 +38,9 @@
         ></p-password>
         @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.touched ||
         submitted)) {
-        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+        <p-message severity="error" size="small" variant="simple">
+          {{loginForm.get('password')?.errors?.['required'] ? 'Password is required' : 'Enter a valid password'}}
+        </p-message>
         }
       </div>
 

@@ -1,17 +1,9 @@
+@if (loading()) {
+<p>Loading...</p>
+} @if (!loading() && assets().length > 0) {
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-  <app-card
-    title="Router Asset"
-    description="Main office router used for internal networking"
-    mac="00:1A:2B:3C:4D:5E"
-  ></app-card>
-  <app-card
-    title="Router Asset"
-    description="Main office router used for internal networking"
-    mac="00:1A:2B:3C:4D:5E"
-  ></app-card>
-  <app-card
-    title="Router Asset"
-    description="Main office router used for internal networking"
-    mac="00:1A:2B:3C:4D:5E"
-  ></app-card>
+  @for (asset of assets(); track asset.id) {
+  <app-card [title]="asset.title" [description]="asset.description" [mac]="asset.mac" />
+  }
 </div>
+}

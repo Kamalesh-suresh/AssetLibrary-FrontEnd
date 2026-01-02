@@ -11,24 +11,24 @@
       <div class="flex flex-col gap-1">
         <label class="text-sm font-medium text-[var(--my-primary-200)]"> First Name </label>
         <input pInputText formControlName="firstName" placeholder="John" class="w-full" />
-        <span
-          class="text-xs text-red-500"
-          *ngIf="signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid"
-        >
-          First name is required
-        </span>
+        @if (signupForm.get('firstName')?.invalid && (signupForm.get('firstName')?.touched ||
+        submitted)) {
+        <p-message severity="error" size="small" variant="simple">
+          {{signupForm.get('firstName')?.errors?.['required'] ? 'First name is required' : 'Enter a valid first name'}}
+        </p-message>
+        }
       </div>
 
       <!-- Last Name -->
       <div class="flex flex-col gap-1">
         <label class="text-sm font-medium text-[var(--my-primary-200)]"> Last Name </label>
         <input pInputText formControlName="lastName" placeholder="Doe" class="w-full" />
-        <span
-          class="text-xs text-red-500"
-          *ngIf="signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid"
-        >
-          Last name is required
-        </span>
+        @if (signupForm.get('lastName')?.invalid && (signupForm.get('lastName')?.touched ||
+        submitted)) {
+        <p-message severity="error" size="small" variant="simple">
+          {{signupForm.get('lastName')?.errors?.['required'] ? 'Last name is required' : 'Enter a valid last name'}}
+        </p-message>
+        }
       </div>
 
       <!-- Email -->
@@ -41,12 +41,9 @@
           placeholder="john@example.com"
           class="w-full"
         />
-        <span
-          class="text-xs text-red-500"
-          *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid"
-        >
-          Enter a valid email
-        </span>
+        <p-message severity="error" size="small" variant="simple">
+          {{signupForm.get('email')?.errors?.['required'] ? 'Email is required' : 'Enter a valid email'}}
+        </p-message>
       </div>
 
       <!-- Password -->

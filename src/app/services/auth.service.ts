@@ -12,6 +12,15 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/login`, payload);
   }
 
+  register(payload: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+  }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, payload);
+  }
+
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
