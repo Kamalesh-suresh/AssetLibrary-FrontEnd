@@ -11,4 +11,11 @@ export class Card {
   @Input() title!: string;
   @Input() description!: string;
   @Input() mac!: string;
+  @Input() link!: string;
+
+  openLink() {
+    if (!this.link) return;
+
+    window.open(this.link, '_blank', 'noopener,noreferrer');
+  }
 }
