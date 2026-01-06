@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../services/auth.service';
@@ -20,7 +21,11 @@ export class Card {
 
   validUser: boolean = false;
 
-  constructor(private authService: AuthService, private assetService: AssetService) {
+  constructor(
+    private authService: AuthService,
+    private assetService: AssetService,
+    private router: Router
+  ) {
     this.validUser = this.authService.isLoggedIn();
     console.log('Valid User:', this.validUser);
   }
@@ -45,5 +50,10 @@ export class Card {
         console.error('Deletion failed', err);
       },
     });
+  }
+
+  editAsset($event: MouseEvent) {
+    $event.stopPropagation();
+    this.router.navigate(['/editAsset', this.id]);
   }
 }

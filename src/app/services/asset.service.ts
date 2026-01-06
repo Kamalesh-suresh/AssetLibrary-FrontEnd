@@ -25,15 +25,19 @@ export class AssetService {
     return this.http.post(`${this.baseUrl}/create`, payload, { headers });
   }
 
-  upadteAsset(id: string, payload: AssetPayload): Observable<any> {
+  updateAsset(id: string, payload: AssetPayload): Observable<any> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put(`${this.baseUrl}/${id}`, payload, { headers });
+    return this.http.patch(`${this.baseUrl}/${id}`, payload, { headers });
   }
 
   deleteAsset(id: string): Observable<any> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete(`${this.baseUrl}/${id}`, { headers });
+  }
+
+  getAssetById(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/get/${id}`);
   }
 }

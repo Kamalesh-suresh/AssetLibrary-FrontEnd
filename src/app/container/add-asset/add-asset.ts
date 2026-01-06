@@ -54,20 +54,26 @@ export class AddAsset implements OnInit {
     this.assetId = this.route.snapshot.paramMap.get('id') ?? '';
     if (this.assetId) {
       this.isEditMode = true;
-      this.loadAsset(this.assetId);
+      this.fetchAssetById(this.assetId);
     }
   }
 
-  loadAsset(id: string) {
-    // 🔹 Replace this with API call
-    const asset = {
-      title: 'Router Asset',
-      description: 'Main office router used for networking',
-      mac: 'mac3',
-      link: 'https://example.com',
-    };
+  fetchAssetById(id: string) {
+    this.assetService.getAssetById(id).subscribe({
+      next: (res) => {
+        const asset = res.asset; // 👈 THIS IS THE FIX
 
-    this.assetForm.patchValue(asset);
+        this.assetForm.patchValue({
+          title: asset.title,
+          description: asset.description,
+          mac: asset.mac,
+          link: asset.link,
+        });
+      },
+      error: (err) => {
+        console.error('Failed to load asset', err);
+      },
+    });
   }
 
   onSubmit() {
@@ -81,10 +87,10 @@ export class AddAsset implements OnInit {
     };
 
     if (this.isEditMode) {
-      this.assetService.upadteAsset(this.assetId, payload).subscribe({
+      this.assetService.updateAsset(this.assetId, payload).subscribe({
         next: () => {
           console.log('Asset updated successfully');
-          this.router.navigate(['/assets']);
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('Update failed', err);
