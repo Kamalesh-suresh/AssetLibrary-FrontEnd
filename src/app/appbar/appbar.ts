@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AssetStateService } from '../services/state/assetState.service';
 
 @Component({
   selector: 'app-appbar',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './appbar.css',
 })
 export class Appbar {
+  assetState = inject(AssetStateService);
 
+  assetCount = this.assetState.assetCount;
 }
