@@ -1,3 +1,5 @@
+@import 'primeicons/primeicons.css';
+
 @layer tailwind-base, primeng, tailwind-utilities;
 
 @layer tailwind-base {
@@ -12,6 +14,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import 'primeicons/primeicons.css';
 
 :root {
   --my-font-family: 'Poppins', sans-serif;

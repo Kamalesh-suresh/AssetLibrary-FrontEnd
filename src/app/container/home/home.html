@@ -8,6 +8,8 @@
     [description]="asset.description"
     [mac]="asset.mac"
     [link]="asset.link"
+    [id]="asset.id"
+    (deleted)="fetchAssets()"
   />
   }
 </div>

@@ -20,5 +20,5 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   { path: 'editAsset/:id', component: AddAsset, canActivate: [authGuard] },
-  { path: '', component: Home, canActivate: [authGuard] },
+  { path: '', component: Home },
 ];

@@ -30,4 +30,10 @@ export class AssetService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put(`${this.baseUrl}/${id}`, payload, { headers });
   }
+
+  deleteAsset(id: string): Observable<any> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/${id}`, { headers });
+  }
 }

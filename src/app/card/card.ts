@@ -1,9 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../services/auth.service';
+import { AssetService } from '../services/asset.service';
 
 @Component({
   selector: 'app-card',
-  imports: [CardModule],
+  imports: [CardModule, ButtonModule],
   templateUrl: './card.html',
   styleUrl: './card.css',
 })
@@ -12,10 +15,35 @@ export class Card {
   @Input() description!: string;
   @Input() mac!: string;
   @Input() link!: string;
+  @Input() id!: number;
+  @Output() deleted = new EventEmitter<void>();
+
+  validUser: boolean = false;
+
+  constructor(private authService: AuthService, private assetService: AssetService) {
+    this.validUser = this.authService.isLoggedIn();
+    console.log('Valid User:', this.validUser);
+  }
 
   openLink() {
     if (!this.link) return;
 
     window.open(this.link, '_blank', 'noopener,noreferrer');
+  }
+
+  deleteAsset($event: MouseEvent) {
+    $event.stopPropagation();
+    console.log('Delete asset with ID:', this.id);
+
+    this.assetService.deleteAsset(this.id.toString()).subscribe({
+      next: () => {
+        alert('Asset deleted successfully');
+        this.deleted.emit();
+        // Optionally, you can add logic here to refresh the asset list in the parent component
+      },
+      error: (err) => {
+        console.error('Deletion failed', err);
+      },
+    });
   }
 }

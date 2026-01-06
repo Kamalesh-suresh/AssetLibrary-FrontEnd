@@ -1,15 +1,37 @@
 <p-card
   (click)="openLink()"
-  class="bg-[var(--my-primary-100)] w-full !rounded-xl border-rad shadow-md border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer"
+  class="relative bg-[var(--my-primary-100)] w-full !rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer"
 >
-  <!-- Title -->
-  <ng-template pTemplate="title">
-    <h3 class="text-lg font-semibold text-[var(--my-primary-100)]">
-      {{ title }}
-    </h3>
+  <!-- HEADER -->
+  <ng-template pTemplate="header">
+    <div class="flex items-center justify-between px-3 pt-3">
+      <h3 class="text-lg font-semibold text-[var(--my-primary-100)]">
+        {{ title }}
+      </h3>
+
+      @if(validUser) {
+      <div class="flex gap-2">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-text p-button-sm !text-gray-700"
+          (click)="$event.stopPropagation()"
+        ></button>
+
+        <button
+          pButton
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-text p-button-sm p-button-danger"
+          (click)="deleteAsset($event)"
+        ></button>
+      </div>
+      }
+    </div>
   </ng-template>
 
-  <!-- Content -->
+  <!-- CONTENT -->
   <div class="space-y-2">
     <p class="text-sm text-gray-700 line-clamp-2">
       {{ description }}
