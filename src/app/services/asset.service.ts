@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+export interface AssetPayload {
+  title: string;
+  description: string;
+  mac: string;
+  link: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AssetService {
@@ -10,5 +17,17 @@ export class AssetService {
 
   getAssets(): Observable<any> {
     return this.http.get(`${this.baseUrl}/all`);
+  }
+
+  createAsset(payload: AssetPayload): Observable<any> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/create`, payload, { headers });
+  }
+
+  upadteAsset(id: string, payload: AssetPayload): Observable<any> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/${id}`, payload, { headers });
   }
 }

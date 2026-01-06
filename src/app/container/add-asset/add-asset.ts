@@ -9,6 +9,8 @@ import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 
+import { AssetService } from '../../services/asset.service';
+
 @Component({
   selector: 'app-add-asset',
   standalone: true, // Ensure this is present for modern Angular
@@ -29,11 +31,16 @@ export class AddAsset implements OnInit {
   assetId!: string;
 
   macOptions = Array.from({ length: 10 }).map((_, i) => ({
-    label: `MAC ${i + 1}`,
-    value: `mac${i + 1}`,
+    label: `Mac ${i + 1}`,
+    value: `Mac ${i + 1}`,
   }));
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private assetService: AssetService
+  ) {}
 
   ngOnInit() {
     this.assetForm = this.fb.group({
@@ -66,14 +73,33 @@ export class AddAsset implements OnInit {
   onSubmit() {
     if (this.assetForm.invalid) return;
 
-    if (this.isEditMode) {
-      console.log('Updating asset:', this.assetId, this.assetForm.value);
-      // call update API
-    } else {
-      console.log('Creating asset:', this.assetForm.value);
-      // call create API
-    }
+    const payload = {
+      title: this.assetForm.value.title,
+      description: this.assetForm.value.description,
+      mac: this.assetForm.value.mac,
+      link: this.assetForm.value.link,
+    };
 
-    this.router.navigate(['/assets']);
+    if (this.isEditMode) {
+      this.assetService.upadteAsset(this.assetId, payload).subscribe({
+        next: () => {
+          console.log('Asset updated successfully');
+          this.router.navigate(['/assets']);
+        },
+        error: (err) => {
+          console.error('Update failed', err);
+        },
+      });
+    } else {
+      this.assetService.createAsset(payload).subscribe({
+        next: () => {
+          console.log('Asset created successfully');
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          console.error('Creation failed', err);
+        },
+      });
+    }
   }
 }
