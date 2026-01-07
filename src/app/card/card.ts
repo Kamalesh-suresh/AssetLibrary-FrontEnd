@@ -2,12 +2,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 import { AuthService } from '../services/auth.service';
 import { AssetService } from '../services/asset.service';
 
 @Component({
   selector: 'app-card',
-  imports: [CardModule, ButtonModule],
+  imports: [CardModule, ButtonModule, TooltipModule],
   templateUrl: './card.html',
   styleUrl: './card.css',
 })
