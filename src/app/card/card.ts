@@ -28,7 +28,6 @@ export class Card {
     private router: Router
   ) {
     this.validUser = this.authService.isLoggedIn();
-    console.log('Valid User:', this.validUser);
   }
 
   openLink() {
@@ -39,7 +38,6 @@ export class Card {
 
   deleteAsset($event: MouseEvent) {
     $event.stopPropagation();
-    console.log('Delete asset with ID:', this.id);
 
     this.assetService.deleteAsset(this.id.toString()).subscribe({
       next: () => {

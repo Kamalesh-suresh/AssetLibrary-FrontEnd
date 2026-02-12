@@ -45,7 +45,6 @@ export class Signup {
 
     this.authService.register(this.signupForm.value).subscribe({
       next: (res) => {
-        console.log('Signup success:', res);
         this.router.navigate(['/login']);
       },
       error: (err) => {
@@ -57,8 +56,5 @@ export class Signup {
         this.loading = false;
       },
     });
-
-    console.log('Signup Data:', this.signupForm.value);
-    // Call API here
   }
 }

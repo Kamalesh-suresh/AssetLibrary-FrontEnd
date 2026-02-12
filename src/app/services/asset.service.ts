@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface AssetPayload {
   title: string;
@@ -11,7 +12,7 @@ export interface AssetPayload {
 
 @Injectable({ providedIn: 'root' })
 export class AssetService {
-  private baseUrl = 'http://localhost:3000/api/asset';
+  private baseUrl = `${environment.apiBaseUrl}/asset`;
 
   constructor(private http: HttpClient) {}
 

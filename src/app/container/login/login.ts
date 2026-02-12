@@ -51,8 +51,6 @@ export class Login {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
-        console.log('Login success:', res);
-
         // ✅ Store token
         localStorage.setItem('token', res.token);
 

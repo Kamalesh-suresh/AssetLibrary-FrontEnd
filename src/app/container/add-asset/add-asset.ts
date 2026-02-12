@@ -89,7 +89,6 @@ export class AddAsset implements OnInit {
     if (this.isEditMode) {
       this.assetService.updateAsset(this.assetId, payload).subscribe({
         next: () => {
-          console.log('Asset updated successfully');
           this.router.navigate(['/']);
         },
         error: (err) => {
@@ -99,7 +98,6 @@ export class AddAsset implements OnInit {
     } else {
       this.assetService.createAsset(payload).subscribe({
         next: () => {
-          console.log('Asset created successfully');
           this.router.navigate(['/']);
         },
         error: (err) => {
