@@ -15,8 +15,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'primeicons/primeicons.css';
-
 :root {
   --my-font-family: 'Poppins', sans-serif;
 }

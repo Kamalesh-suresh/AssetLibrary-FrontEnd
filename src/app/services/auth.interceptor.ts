@@ -9,6 +9,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  if (req.url.includes('/login') || req.url.includes('/signup')) {
+    return next(req);
+  }
+
   const token = authService.getToken();
 
   let authReq = req;
