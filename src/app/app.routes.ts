@@ -1,24 +1,27 @@
 import { Routes } from '@angular/router';
-import { Login } from './container/login/login';
-import { Signup } from './container/signup/signup';
-import { Home } from './container/home/home';
-import { AddAsset } from './container/add-asset/add-asset';
 import { authGuard } from './services/authGuard';
 
 export const routes: Routes = [
   {
     path: 'login',
-    component: Login,
+    loadComponent: () => import('./container/login/login').then((m) => m.Login),
   },
   {
     path: 'signup',
-    component: Signup,
+    loadComponent: () => import('./container/signup/signup').then((m) => m.Signup),
   },
   {
     path: 'addAsset',
-    component: AddAsset,
+    loadComponent: () => import('./container/add-asset/add-asset').then((m) => m.AddAsset),
     canActivate: [authGuard],
   },
-  { path: 'editAsset/:id', component: AddAsset, canActivate: [authGuard] },
-  { path: '', component: Home },
+  {
+    path: 'editAsset/:id',
+    loadComponent: () => import('./container/add-asset/add-asset').then((m) => m.AddAsset),
+    canActivate: [authGuard],
+  },
+  {
+    path: '',
+    loadComponent: () => import('./container/home/home').then((m) => m.Home),
+  },
 ];
