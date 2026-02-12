@@ -1,9 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Card } from '../../card/card';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
 import { AssetService } from '../../services/asset.service';
-import { Appbar } from '../../appbar/appbar';
 import { AssetStateService } from '../../services/state/assetState.service';
 
 @Component({
@@ -12,34 +10,6 @@ import { AssetStateService } from '../../services/state/assetState.service';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-// export class Home implements OnInit {
-//   assets: any[] = [];
-//   loading = true;
-//   error = '';
-
-//   constructor(private assetService: AssetService, private cdr: ChangeDetectorRef) {}
-
-//   ngOnInit() {
-//     this.fetchAssets();
-//   }
-
-//   fetchAssets() {
-//     this.loading = true;
-//     this.assetService.getAssets().subscribe({
-//       next: (data) => {
-//         this.assets = [...data.assets];
-//         this.loading = false;
-//         this.cdr.detectChanges();
-//       },
-//       error: (err) => {
-//         this.error = 'Failed to load assets. Please try again later.';
-//         console.error('Error fetching assets:', err);
-//         this.loading = false;
-//         this.cdr.detectChanges();
-//       },
-//     });
-//   }
-// }
 export class Home {
   assets = signal<any[]>([]);
   loading = signal(true);

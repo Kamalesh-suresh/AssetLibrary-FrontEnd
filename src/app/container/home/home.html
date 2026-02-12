@@ -1,7 +1,8 @@
-
 @if (loading()) {
 <p>Loading...</p>
-} @if (!loading() && assets().length > 0) {
+} @if(error() && !loading()) {
+<p class="text-center text-red-500 mt-10 text-sm">{{ error() }}</p>
+} @if (!loading() && !error() && assets().length > 0) {
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
   @for (asset of assets(); track asset.id) {
   <app-card
@@ -14,4 +15,6 @@
   />
   }
 </div>
+} @if (!loading() && !error() && assets().length === 0) {
+<p class="text-center text-gray-500 mt-10">No assets found. Please add some assets.</p>
 }
