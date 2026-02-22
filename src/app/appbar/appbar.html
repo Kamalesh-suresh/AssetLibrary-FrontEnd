@@ -1,6 +1,15 @@
 <div class="flex items-center justify-between p-4">
   <img src="psiogLogo.png" alt="Logo" class="h-14 w-50" />
   <div>
+    @if (isLogged) {
+      <button class="px-3 py-2 bg-red-500 text-white rounded mr-6" (click)="logout()">
+        Logout
+      </button>
+    } @else {
+      <a routerLink="/login" class="mr-6 px-3 py-2 bg-[var(--my-primary-100)] text-white rounded">
+        Login
+      </a>
+    }
     <span class="font-bold text-[var(--my-primary-100)]">Total Assets Created :</span>
     <span class="font-bold text-4xl text-[var(--my-primary-200)]">{{ assetCount() }}</span>
   </div>
